@@ -8,11 +8,12 @@ Page {
     property string imgIdonImgur: ""
     property string url: ""
     Container {
+                    topPadding: 50
         Label {
             id: urlLabel
             text: (selectedFile === "") ? "NO FILE IS CHOSEN YET" : "PUSH THE BUTTON TO UPLOAD:"
             topMargin: 50
-            topPadding: 50
+
             horizontalAlignment: HorizontalAlignment.Center
             textStyle {
                 base: SystemDefaults.TextStyles.TitleText
@@ -21,7 +22,7 @@ Page {
             }
             
         }
-
+                                
         Container {
             // horizontalAlignment: HorizontalAlignment.Center
             layout: StackLayout {
@@ -39,7 +40,7 @@ Page {
                 layoutProperties: StackLayoutProperties {
                     spaceQuota: 1
                 }
-                onClicked: {
+                onClicked: {            
                     qmlhandler.openUrl(url)
                    
                 }
@@ -53,7 +54,7 @@ Page {
                 onClicked: {
                   qmlhandler.copyText(url);
                 }
-            }
+            }                                    
         }
         Container {
             // horizontalAlignment: HorizontalAlignment.Center
@@ -75,8 +76,8 @@ Page {
                 visible: (selectedFile === "") ? false : true
                 layoutProperties: StackLayoutProperties {
                     spaceQuota: 1
-                }
-                onTouch: {
+                }            
+                onTouch: {                                    color: Color.create("#7e7b7b")
                     filePicker.open()
                 }
             }
@@ -100,7 +101,7 @@ Page {
             visible: (selectedFile == "") ? true : false
             onClicked: {
                 filePicker.open()
-            }
+            }                                 
         }
         Button {
             id: uploadPickture
@@ -139,7 +140,7 @@ Page {
                 invoke.query.uri = data;
                 copyText.text = data;
 
-                // copylink.text = data;
+                // copylink.text = d                                    color: Color.create("#7e7b7b")ata;
             }
             onResultprogress: {
                 uploadProgress.value = percentage;

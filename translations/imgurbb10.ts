@@ -4,23 +4,13 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../assets/main.qml" line="9"/>
+        <location filename="../assets/main.qml" line="11"/>
         <source>Upload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="18"/>
-        <source>Tab 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/main.qml" line="24"/>
-        <source>Raise</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/main.qml" line="34"/>
-        <source>Tab 2 title</source>
+        <location filename="../assets/main.qml" line="20"/>
+        <source>About</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
