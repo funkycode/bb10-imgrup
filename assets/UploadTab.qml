@@ -97,7 +97,7 @@ Page {
         Button {
             id: imgPicker
             text: "Choose image to upload"
-            visible: (selectedFile === "") ? true : false
+            visible: (selectedFile == "") ? true : false
             onClicked: {
                 filePicker.open()
             }
