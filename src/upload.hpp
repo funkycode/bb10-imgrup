@@ -11,7 +11,7 @@
 #ifndef UPLOAD_HPP_
 #define UPLOAD_HPP_
 
-
+#include <QFile>
 #include <QObject>
 #include <QString>
 #include <stdio.h>
@@ -32,7 +32,7 @@ class Upload : public QObject
 public:
 
 
-    Upload(QObject *parent = 0);
+    Upload();
     ~Upload();
 
 

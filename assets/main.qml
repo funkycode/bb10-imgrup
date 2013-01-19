@@ -6,7 +6,9 @@ TabbedPane {
     showTabsOnActionBar: true
     
     Tab {
-        title: qsTr("Test")
+        title: qsTr("Upload")
+        imageSource: ""
+        
         UploadTab {
             id: uploadTab
         }
@@ -53,38 +55,6 @@ TabbedPane {
                             ScaleTransition {fromX: 1; fromY: 1; toX: 1.5; toY: 1.5; duration: 1000; easingCurve: StockCurve.DoubleElasticOut}
                         }
                     ]
-                }
-            }
-        }
-    }
-    Tab {
-        title: qsTr("Tab 3")
-        Page {
-            id: tab3
-            Container {
-                // define tab content here
-                Label {
-                    text: qsTr("Tab 3 title")
-                    horizontalAlignment: HorizontalAlignment.Center
-                    textStyle {
-                        base: SystemDefaults.TextStyles.TitleText
-                    }
-                }
-                Container {
-                    layout: DockLayout { }
-                    layoutProperties: StackLayoutProperties {
-                        spaceQuota: 1.0
-                    }
-                    verticalAlignment: VerticalAlignment.Fill
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    Label {
-                        text: qsTr ("Tab 3 content")
-                        verticalAlignment: VerticalAlignment.Center
-                        horizontalAlignment: HorizontalAlignment.Center
-                        textStyle {
-                            base: SystemDefaults.TextStyles.BodyText
-                        }
-                    }
                 }
             }
         }

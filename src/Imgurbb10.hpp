@@ -16,6 +16,8 @@ class Imgurbb10 : public QObject
     Q_OBJECT
 public:
     Imgurbb10(bb::cascades::Application *app);
+    Q_INVOKABLE void copyText(QByteArray text);
+    Q_INVOKABLE void openUrl(QString url);
     virtual ~Imgurbb10() {}
 };
 

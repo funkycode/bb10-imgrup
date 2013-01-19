@@ -30,7 +30,7 @@
 
     <!-- The name that is displayed in the BlackBerry Tablet OS application installer. 
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
-    <name>imgurbb10</name>
+    <name>imgrup</name>
     
     <!-- A string value of the format <0-999>.<0-999>.<0-999> that represents application version which can be used to check for application upgrade. 
          Values can also be 1-part or 2-part. It is not necessary to have a 3-part value.
@@ -46,13 +46,13 @@
 
     <!-- Description, displayed in the BlackBerry Tablet OS application installer.
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
-    <description>The imgurbb10 application</description>
+    <description>The imgrup for bb10</description>
 
     <!-- Copyright information. Optional. -->
     <!-- <copyright></copyright> -->
 
     <!--  Name of author which is used for signing. Must match the developer name of your development certificate. -->
-    <author>Example Inc.</author>
+    <author>ZogG</author>
     
     <!--  Unique author ID assigned by signing authority. Required if using debug tokens. -->
     <!-- <authorId>ABC1234YjsnUk235h</authorId> -->
@@ -97,6 +97,17 @@
     
     <!-- Request permission to execute native code.  Required for native applications. -->
     <permission system="true">run_native</permission>
+   
+    <action>access_shared</action> 
+    <!--  <action>record_audio</action> -->
+    <!--  <action>read_geolocation</action> -->
+    <!--  <action>use_camera</action> -->
+     <action>access_internet</action> 
+    <!--  <action>play_audio</action> -->
+    <!--  <action>post_notification</action> -->
+    <!--  <action>set_audio_volume</action> -->
+    <!--  <action>read_device_identifying_information</action> -->
     <env var="LD_LIBRARY_PATH" value="app/native/lib:/usr/lib/qt4/lib"/>
+    
 
 </qnx>
