@@ -79,7 +79,15 @@ Page {
                 }            
                 onTouch: {                                    color: Color.create("#7e7b7b")
                     filePicker.open()
+                    hintLabel.visible = false
+                    uploadPicture.visible = true
                 }
+                onImageSourceChanged: 
+                    {
+                        console.log("Image source trigger")
+                        
+                        
+                    }
             }
             ProgressIndicator {
                 verticalAlignment: VerticalAlignment.Center
@@ -95,24 +103,40 @@ Page {
         Container {
             topPadding: 20
             horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Center
         Button {
             id: imgPicker
             text: "Choose image to upload"
             visible: (selectedFile == "") ? true : false
             onClicked: {
-                filePicker.open()
+                filePicker.open();
+                uploadPicture.visible = true;
             }                                 
         }
         Button {
-            id: uploadPickture
-            text: "Upload "
-             visible: (selectedFile === "") ? false : true
+            id: uploadPicture
+            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Center
+            text: "Upload"
+             visible: false
             onClicked: {
                 //console.log("selected file is " + selectedFile);
                 uploadProgress.visible = true;
+                uploadPicture.visible = false;
                 uploader.upload_request(selectedFile);
             }
         }
+          Label {
+                    id: hintLabel
+                    text: "TAP THE IMAGE TO UPLOAD MORE"
+                    topMargin: 20
+                    visible : false
+                    horizontalAlignment: HorizontalAlignment.Center
+                    textStyle {
+                        base: SystemDefaults.TextStyles.TitleText
+                        color: Color.create("#7e7b7b")
+                        fontSizeValue: 22
+                    }
     }
     }
     attachedObjects: [
@@ -138,9 +162,8 @@ Page {
                 url = data;
                 urlLabel.text = data;
                 invoke.query.uri = data;
-                copyText.text = data;
-
-                // copylink.text = d                                    color: Color.create("#7e7b7b")ata;
+                uploadPicture.visible = false;
+                hintLabel.visible = true;
             }
             onResultprogress: {
                 uploadProgress.value = percentage;
@@ -160,4 +183,5 @@ Page {
             }
         }
     ]
+ }
 }
