@@ -50,12 +50,25 @@ Page {
                 layoutProperties: StackLayoutProperties {
                     spaceQuota: 1
                 }
-                text: "copy "
+                text: "copy"
                 onClicked: {
                   qmlhandler.copyText(url);
                 }
-            }                                    
+                
+            }   
+            Button {
+                    id: shareButton
+                            layoutProperties: StackLayoutProperties {
+                                spaceQuota: 1
+                            }
+                            text: "share"
+                            onClicked: {
+                              invokeQuery.mimeType = "text/plain"
+				              invokeQuery.data = url + " ";
+				              invokeQuery.updateQuery();
+                            }                                 
         }
+    }
         Container {
             // horizontalAlignment: HorizontalAlignment.Center
             layout: StackLayout {
@@ -77,7 +90,7 @@ Page {
                 layoutProperties: StackLayoutProperties {
                     spaceQuota: 1
                 }            
-                onTouch: {                                    color: Color.create("#7e7b7b")
+                onTouch: {                                   
                     filePicker.open()
                     hintLabel.visible = false
                     uploadPicture.visible = true
@@ -161,7 +174,6 @@ Page {
             onResulturl: {
                 url = data;
                 urlLabel.text = data;
-                invoke.query.uri = data;
                 uploadPicture.visible = false;
                 hintLabel.visible = true;
             }
@@ -170,18 +182,19 @@ Page {
                 if (percentage === 100) uploadProgress.visible = false;
             }
         },
-        Invocation {
-            id: invoke
-            property bool auto_trigger: false
-            query: InvokeQuery {
-                mimeType: "text/html"
-                uri: "http://imgur.com"
-                invokeActionId: "bb.action.OPEN"
-                onUriChanged: {
-                    updateQuery();
-                }
-            }
-        }
+	    Invocation {
+	       id: invokeShare
+	       query: InvokeQuery {
+	           id:invokeQuery
+	           mimeType: "text/plain"                        
+	       }
+	       onArmed: {
+	           if (invokeQuery.data != "") {
+	               trigger("bb.action.SHARE");
+	           }
+	       }             
+	    }
     ]
+  }
  }
-}
+

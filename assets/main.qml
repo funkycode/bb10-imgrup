@@ -2,7 +2,7 @@
 import bb.cascades 1.0
 
 TabbedPane {
-     id : mainPage
+    id : mainPage
     showTabsOnActionBar: true
     
  

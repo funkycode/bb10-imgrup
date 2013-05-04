@@ -1,15 +1,6 @@
 // Tabbed pane project template
 #include "Imgurbb10.hpp"
-#include <upload.hpp>
-#include <bb/cascades/Application>
-#include <bb/cascades/QmlDocument>
-#include <bb/cascades/AbstractPane>
-#include <bb/system/Clipboard>
-//#include <bb/cascades/InvokeQuery>
-//#include <bb/system/InvokeManager>
-//#include <bb/system/InvokeRequest>
-//#include <bb/cascades/Invocation>
-#include <bb/cascades/InvokeActionItem>
+
 
 using namespace bb::cascades;
 
@@ -39,6 +30,9 @@ void Imgurbb10::copyText(QByteArray text)
 	 bb::system::Clipboard clipboard;
 	 clipboard.clear();
 	 clipboard.insert("text/plain", text);
+	 bb::system::SystemToast *toast = new bb::system::SystemToast(this);
+     toast->setBody("link was copied");
+	 toast->show();
 }
 
 void Imgurbb10::openUrl(QString url)

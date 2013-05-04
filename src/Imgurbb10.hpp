@@ -1,8 +1,19 @@
-// Tabbed pane project template
 #ifndef Imgurbb10_HPP_
 #define Imgurbb10_HPP_
 
 #include <QObject>
+#include <upload.hpp>
+#include <bb/cascades/Application>
+#include <bb/cascades/QmlDocument>
+#include <bb/cascades/AbstractPane>
+#include <bb/system/Clipboard>
+
+#include <bb/cascades/InvokeActionItem>
+#include <bb/system/SystemToast>
+//#include <bb/cascades/InvokeQuery>
+//#include <bb/system/InvokeManager>
+//#include <bb/system/InvokeRequest>
+//#include <bb/cascades/Invocation>
 
 namespace bb { namespace cascades { class Application; }}
 

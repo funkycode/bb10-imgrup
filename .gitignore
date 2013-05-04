@@ -11,3 +11,8 @@
 *.lai
 *.la
 *.a
+
+#builds
+arm/o.le-v7*/*.so*
+arm/Makefile*
+
