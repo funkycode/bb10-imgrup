@@ -5,16 +5,17 @@
  *      Author: zogg
  */
 
-
-#include <upload.hpp>
+#include "upload.hpp"
+#include "up_image.hpp"
 
 
 Upload::Upload()//(QObject *parent)
    // : QObject(parent),
-    :  nam(new QNetworkAccessManager(this))
 {
-
-    connect(nam, SIGNAL(finished(QNetworkReply*)), this, SLOT(parser(QNetworkReply*)));
+	//dummy one for connection
+	UploadImage *imgToUpload = new UploadImage(-1);
+    connect(imgToUpload, SIGNAL(returnImgData(int, QString)), this, SLOT(getImgUrl(int, QString)));
+    connect(imgToUpload, SIGNAL(returnUploadProgress (int, int)),this,SLOT(getUploadProgress(int, int)));
 }
 
 Upload::~Upload()
@@ -22,86 +23,19 @@ Upload::~Upload()
 
 }
 
-
-
-
-
-
-void Upload::parser(QNetworkReply *reply)      //parsing data due to request
-{
-	if (reply->error() != QNetworkReply::NoError)
-	{
-		QString errtest = reply->errorString();
-		qDebug() << "error: "<<errtest<<endl;
-
-	}
-    QString response = reply->readAll();
-    QScriptValue sc;
-    QScriptEngine engine;
-    qDebug() << "test: "<<response;
-    sc = engine.evaluate("("+ QString(response)+ ")");
-    QString data;
-    qDebug() << "url: "<<sc.property("upload").property("links").property("original").toString();
-    data = sc.property("upload").property("links").property("original").toString();
-    emit resulturl(data);//return url only
-    reply->close();
-    return;
-
+void Upload::getImgUrl(int id, QString data){
+	emit returnImgUrl(id, data);
+}
+void Upload::getUploadProgress (int id, int percentage){
+	emit returnUploadProgress (id, percentage);
 }
 
-void Upload::progresscalc( qint64 sent, qint64 total)
+void Upload::uploadRequest(QString filename, int id)
 {
 
+	UploadImage *imgToUpload = new UploadImage(id);
+	imgToUpload->requestUpload(filename);
 
-
-    double sent_p = sent;
-    double total_p = total;
-    double percentagedouble = (sent_p/total_p) * 100;
-    int percentage = percentagedouble;
-    emit resultprogress (percentage);
-
-
-}
-
-
-
-
-
-void Upload::upload_request(QString filename)
-{
-
-	 qDebug() << "file is : "<< filename ;
-
-//    filename.remove(0,7);
-    QString key="c4f5cf8a8f1782d6388edb1b05cf8efa04ec64af4";
-    QString key_anon="0426cb779599180503fd02a0e134ff03";
-    QString secret="67560fc48f699bd5a518b35f120b44be";
-    QString method="HMAC-SHA1";
-    QString version ="1.0";
-
-    QUrl url("http://api.imgur.com/2/upload.json");
-
-    QByteArray postdata;
-
-    QFile img_file(filename);
-
-
-    if (!img_file.open(QIODevice::ReadOnly))
-        qDebug() << "can't read file" << endl;
-    QByteArray fileData = img_file.readAll().toBase64();
-    img_file.close();
-
-
-    //POST data
-    postdata.append(QString("key=").toUtf8());
-    postdata.append(QUrl::toPercentEncoding(key_anon));
-    postdata.append(QString("&image=").toUtf8());
-    postdata.append(QUrl::toPercentEncoding(fileData));
-    //END POST data
-
-
-    QNetworkReply *reply = nam->post(QNetworkRequest(url), postdata);
-    connect(reply, SIGNAL(uploadProgress(qint64,qint64)), this, SLOT(progresscalc(qint64,qint64)));
 
 
 }

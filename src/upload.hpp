@@ -11,19 +11,12 @@
 #ifndef UPLOAD_HPP_
 #define UPLOAD_HPP_
 
-#include <QFile>
 #include <QObject>
 #include <QString>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <QByteArray>
-#include <QtScript/QScriptEngine>
-#include <QtScriptTools/QtScriptTools>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QNetworkRequest>
-#include <QNetworkSession>
+#include "up_image.hpp"
 
 class Upload : public QObject
 {
@@ -34,30 +27,20 @@ public:
 
     Upload();
     ~Upload();
+    Q_INVOKABLE void uploadRequest(QString filename, int id);
 
+    signals:
 
-    Q_INVOKABLE void upload_request(QString filename);
+    	    void returnImgUrl(int id, QString data);
+    	    void returnUploadProgress (int id, int percentage);
 
+    public slots:
 
-signals:
-
-    void resulturl(QString data);
-    void resultprogress (int percentage);
-
-public slots:
-
-    void parser(QNetworkReply *reply);
-    void progresscalc(qint64 sent, qint64 total);
-
-
-
-
-
-
+    	    void getImgUrl(int id, QString data);
+    	    void getUploadProgress (int id, int percentage);
 
 private:
 
-    QNetworkAccessManager *nam;
 
 };
 
