@@ -27,7 +27,7 @@ public:
 
     Upload();
     ~Upload();
-    Q_INVOKABLE void uploadRequest(QString filename, int id);
+    Q_INVOKABLE void uploadRequest(int id, QString filename);
 
     signals:
 

@@ -9,6 +9,7 @@ device {
                  $$quote($$BASEDIR/src/upload.cpp)
 
         HEADERS +=  $$quote($$BASEDIR/src/Imgurbb10.hpp) \
+                 $$quote($$BASEDIR/src/keys.h) \
                  $$quote($$BASEDIR/src/up_image.hpp) \
                  $$quote($$BASEDIR/src/upload.hpp)
     }
@@ -20,6 +21,7 @@ device {
                  $$quote($$BASEDIR/src/upload.cpp)
 
         HEADERS +=  $$quote($$BASEDIR/src/Imgurbb10.hpp) \
+                 $$quote($$BASEDIR/src/keys.h) \
                  $$quote($$BASEDIR/src/up_image.hpp) \
                  $$quote($$BASEDIR/src/upload.hpp)
     }
@@ -33,6 +35,7 @@ simulator {
                  $$quote($$BASEDIR/src/upload.cpp)
 
         HEADERS +=  $$quote($$BASEDIR/src/Imgurbb10.hpp) \
+                 $$quote($$BASEDIR/src/keys.h) \
                  $$quote($$BASEDIR/src/up_image.hpp) \
                  $$quote($$BASEDIR/src/upload.hpp)
     }

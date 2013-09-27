@@ -4,25 +4,40 @@ import QtQuick 1.0
 
 Page {
     id: uploadTab
-    property string selectedFile: ""
-    property string imgIdonImgur: ""
-    property string url: ""
+    
     Container {
                     topPadding: 50
-        Label {
-            id: urlLabel
-            text: (selectedFile === "") ? "NO FILE IS CHOSEN YET" : "PUSH THE BUTTON TO UPLOAD:"
-            topMargin: 50
-
-            horizontalAlignment: HorizontalAlignment.Center
-            textStyle {
-                base: SystemDefaults.TextStyles.TitleText
-                color: Color.create("#7e7b7b")
-                fontSizeValue: 22
-            }
-            
-        }
+     
+                    ListView {
+                        id: imgListView
+                        dataModel: filesList
+                        
+                        listItemComponents: [
+                            /*ListItemComponent {
+                                type: "header"
                                 
+                                Header {
+                                    title: ListItemData
+                                }
+                            },
+                            */
+                            ListItemComponent {
+                                type: "listItem"
+                                id: listItem
+                                UploadImageItem{
+                                    text: ListItem.data.test.toString()
+                                    imgurID: ListItemData.test
+                                    fileName: ListItemData.fileName
+                                }
+                            }
+                        ]
+                    }
+            
+            
+            
+         /*   
+            
+                     
         Container {
             // horizontalAlignment: HorizontalAlignment.Center
             layout: StackLayout {
@@ -80,16 +95,7 @@ Page {
             leftPadding: 20
             rightPadding: 20
             //  visible: (selectedFile === "") ? false :true
-            ImageView {
-                id: previewImage
-                imageSource: selectedFile
-                maxHeight: 380
-                // maxWidth: 380
-                scalingMethod: ScalingMethod.AspectFit
-                visible: (selectedFile === "") ? false : true
-                layoutProperties: StackLayoutProperties {
-                    spaceQuota: 1
-                }            
+            
                 onTouch: {                                   
                     filePicker.open()
                     hintLabel.visible = false
@@ -102,30 +108,13 @@ Page {
                         
                     }
             }
-            ProgressIndicator {
-                verticalAlignment: VerticalAlignment.Center
-                id: uploadProgress
-                visible: false
-                layoutProperties: StackLayoutProperties {
-                    spaceQuota: 2
-                }
-                fromValue: 0
-                toValue: 100
-            }
+            
         }
         Container {
             topPadding: 20
             horizontalAlignment: HorizontalAlignment.Center
             verticalAlignment: VerticalAlignment.Center
-        Button {
-            id: imgPicker
-            text: "Choose image to upload"
-            visible: (selectedFile == "") ? true : false
-            onClicked: {
-                filePicker.open();
-                uploadPicture.visible = true;
-            }                                 
-        }
+      
         Button {
             id: uploadPicture
             horizontalAlignment: HorizontalAlignment.Center
@@ -136,7 +125,7 @@ Page {
                 //console.log("selected file is " + selectedFile);
                 uploadProgress.visible = true;
                 uploadPicture.visible = false;
-                uploader.upload_request(selectedFile);
+                uploader.uploadRequest(1 ,selectedFile);
             }
         }
           Label {
@@ -152,32 +141,65 @@ Page {
                     }
     }
     }
+    */
+    Button {
+    id: imgPicker
+    text: "Choose image to upload"
+    visible: (selectedFile == "") ? true : false
+    onClicked: {
+    filePicker.open();
+    }                                 
+    }
+    
     attachedObjects: [
+        GroupDataModel {
+            id: filesList
+            objectName: "filesList"
+        },
         FilePicker {
             id: filePicker
 
             //property string selectedFile
             type: FileType.Picture
             title: "Select Picture"
+            mode: FilePickerMode.PickerMultiple
             directories: [
                 "/accounts/1000/shared/"
             ]
             // viewmode : FilePickerViewMode.GridView
+//            onPickerClosed: {
+//                
+//                dataModel.clear();
+//                dataModel.insert(item);
+//               // imgListView.model
+//                
+//            }
             onFileSelected: {
-                //  console.log("FileSelected signal received : " + selectedFiles);
+                 
+                filesList.clear();
+                filesList.insert(
+                    {
+                            "fileName": "file://" + selectedFiles[0],
+                            "test" : "test"
+                    }
+                );
+                
+                  console.log("FileSelected signal received : " + selectedFiles);
                 // testText.text = " test2 " + selectedFiles;
-                selectedFile = selectedFiles[0];
+                 // selectedFile = "file://" + selectedFiles[0];
             }
         },
         Connections {
             target: uploader
-            onResulturl: {
+            onReturnImgUrl: {
+                console.log("qml id : " + id);
                 url = data;
                 urlLabel.text = data;
                 uploadPicture.visible = false;
                 hintLabel.visible = true;
             }
-            onResultprogress: {
+            onReturnUploadProgress: {
+                console.log("qml id : " + id);
                 uploadProgress.value = percentage;
                 if (percentage === 100) uploadProgress.visible = false;
             }
@@ -195,6 +217,7 @@ Page {
 	       }             
 	    }
     ]
+  
   }
  }
 

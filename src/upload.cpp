@@ -13,9 +13,7 @@ Upload::Upload()//(QObject *parent)
    // : QObject(parent),
 {
 	//dummy one for connection
-	UploadImage *imgToUpload = new UploadImage(-1);
-    connect(imgToUpload, SIGNAL(returnImgData(int, QString)), this, SLOT(getImgUrl(int, QString)));
-    connect(imgToUpload, SIGNAL(returnUploadProgress (int, int)),this,SLOT(getUploadProgress(int, int)));
+
 }
 
 Upload::~Upload()
@@ -24,16 +22,22 @@ Upload::~Upload()
 }
 
 void Upload::getImgUrl(int id, QString data){
+	 qDebug() << "id  : "<< id <<" data "<< data;
+
 	emit returnImgUrl(id, data);
 }
 void Upload::getUploadProgress (int id, int percentage){
+	 qDebug() << "id : "<< id << " % is" <<percentage ;
+
 	emit returnUploadProgress (id, percentage);
 }
 
-void Upload::uploadRequest(QString filename, int id)
+void Upload::uploadRequest(int id, QString filename)
 {
 
 	UploadImage *imgToUpload = new UploadImage(id);
+	connect(imgToUpload, SIGNAL(returnImgData(int, QString)), this, SLOT(getImgUrl(int, QString)));
+	connect(imgToUpload, SIGNAL(returnUploadProgress (int, int)),this,SLOT(getUploadProgress(int, int)));
 	imgToUpload->requestUpload(filename);
 
 
